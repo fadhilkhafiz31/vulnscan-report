@@ -6,6 +6,11 @@
 
 This project demonstrates real-world cybersecurity skills, including scanning, parsing XML, automating reports, and designing cybersecurity tooling — perfect for portfolio and early-career security roles.
 
+## 🔗 Live Demo
+
+- **Project Site:** https://fadhilkhafiz31.github.io/vulnscan-report/
+- **Sample Report:** https://fadhilkhafiz31.github.io/vulnscan-report/demo-report.html
+
 ---
 
 ## 🚀 Features
@@ -29,6 +34,16 @@ This project demonstrates real-world cybersecurity skills, including scanning, p
 | XML Parser | lxml |
 | Report Engine | Jinja2 |
 | OS Compatibility | Windows / Linux / macOS |
+
+---
+
+## 📖 Usage
+
+Run a vulnerability scan and generate an HTML report:
+
+```bash
+py run_scan.py --target 127.0.0.1 --output reports/my_report.html
+```
 
 ---
 
