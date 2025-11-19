@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Scan Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #e5e5e5;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            padding: 24px;
+        }
+
+        .header {
+            border-bottom: 2px solid #404040;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #ffffff;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #3a3a3a 0%, #2d2d2d 100%);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border: 1px solid #404040;
+        }
+
+        .summary h2 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .summary-item {
+            background-color: #1a1a1a;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .summary-item strong {
+            display: block;
+            color: #b0b0b0;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .summary-item .value {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .host-block {
+            margin-bottom: 50px;
+        }
+
+        .host-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .host-block h2 {
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #404040;
+            font-weight: 600;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 30px;
+            background-color: #1a1a1a;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        thead {
+            background-color: #3a3a3a;
+        }
+
+        th {
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #ffffff;
+            border: none;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #404040;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #252525;
+        }
+
+        tbody tr:hover {
+            background-color: #353535;
+        }
+
+        .severity-high {
+            background-color: #4a1f1f !important;
+        }
+
+        .severity-high:nth-child(even) {
+            background-color: #5a2525 !important;
+        }
+
+        .severity-high:hover {
+            background-color: #6a2f2f !important;
+        }
+
+        .severity-medium {
+            background-color: #4a3a1f !important;
+        }
+
+        .severity-medium:nth-child(even) {
+            background-color: #5a4525 !important;
+        }
+
+        .severity-medium:hover {
+            background-color: #6a502f !important;
+        }
+
+        .severity-low {
+            background-color: #1f3a2f !important;
+        }
+
+        .severity-low:nth-child(even) {
+            background-color: #254530 !important;
+        }
+
+        .severity-low:hover {
+            background-color: #2f503a !important;
+        }
+
+        td {
+            padding: 12px;
+            font-size: 0.9rem;
+            color: #e5e5e5;
+            border: none;
+            vertical-align: middle;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-align: center;
+            min-width: 70px;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-high {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
+        .badge-medium {
+            background-color: #fd7e14;
+            color: #ffffff;
+        }
+
+        .badge-low {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #b0b0b0;
+            font-size: 0.85rem;
+            border-top: 1px solid #404040;
+            margin-top: 40px;
+        }
+
+        @media print {
+            body {
+                background-color: #1a1a1a;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .summary {
+                background: #3a3a3a;
+                border: 1px solid #404040;
+            }
+
+            tbody tr:nth-child(even) {
+                background-color: #252525;
+            }
+
+            .footer {
+                border-top: 1px solid #404040;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Vulnerability Scan Report</h1>
+            <p class="subtitle">Generated: 2025-11-19 10:57:29 UTC</p>
+        </div>
+
+        <div class="summary">
+            <h2>Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <strong>Total Hosts</strong>
+                    <span class="value">1</span>
+                </div>
+                <div class="summary-item">
+                    <strong>Total Open Ports</strong>
+                    <span class="value">2</span>
+                </div>
+                <div class="summary-item">
+                    <strong>High Severity</strong>
+                    <span class="value"><span class="badge badge-high">2</span></span>
+                </div>
+                <div class="summary-item">
+                    <strong>Medium Severity</strong>
+                    <span class="value"><span class="badge badge-medium">0</span></span>
+                </div>
+                <div class="summary-item">
+                    <strong>Low Severity</strong>
+                    <span class="value"><span class="badge badge-low">0</span></span>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="host-block">
+            <h2>Host: 127.0.0.1</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Port</th>
+                        <th>Protocol</th>
+                        <th>State</th>
+                        <th>Service</th>
+                        <th>Severity</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr class="severity-high">
+                        <td><strong>135</strong></td>
+                        <td>tcp</td>
+                        <td>open</td>
+                        <td>msrpc</td>
+                        <td>
+                            
+                                <span class="badge badge-high">High</span>
+                            
+                        </td>
+                        <td>
+                            
+                                Review this service and ensure it is necessary and patched.
+                            
+                        </td>
+                    </tr>
+                    
+                    <tr class="severity-high">
+                        <td><strong>445</strong></td>
+                        <td>tcp</td>
+                        <td>open</td>
+                        <td>microsoft-ds</td>
+                        <td>
+                            
+                                <span class="badge badge-high">High</span>
+                            
+                        </td>
+                        <td>
+                            
+                                Review this service and ensure it is necessary and patched.
+                            
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        
+
+        <div class="footer">
+            Generated by vulnscan-report
+        </div>
+    </div>
+</body>
+</html>

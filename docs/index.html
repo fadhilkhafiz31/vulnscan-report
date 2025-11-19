@@ -222,6 +222,14 @@
       background: #4a4a5a;
     }
 
+    body.dark-mode .code-block code strong {
+      color: #ffffff;
+    }
+
+    body.dark-mode p {
+      color: #d0d0d0;
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 40px 30px;
@@ -265,7 +273,7 @@
 
     <div class="button-group">
       <a href="demo-report.html" class="btn btn-primary" target="_blank">
-        View Sample Report
+        View Sample Reports
       </a>
       <a href="https://github.com/fadhilkhafiz31/vulnscan-report" class="btn btn-secondary" target="_blank">
         View GitHub Repository
@@ -273,9 +281,47 @@
     </div>
 
     <section class="section">
-      <h2 class="section-title">📖 Usage Example</h2>
+      <h2 class="section-title">📖 Usage Examples</h2>
+      
+      <div class="code-block" style="margin-bottom: 16px;">
+        <code><strong>Default Scan:</strong><br>py run_scan.py --target 127.0.0.1 --output reports/my_report.html</code>
+      </div>
+      
+      <div class="code-block" style="margin-bottom: 16px;">
+        <code><strong>Fast Scan:</strong><br>py run_scan.py --target 127.0.0.1 --profile fast --output reports/quick_scan.html</code>
+      </div>
+      
+      <div class="code-block" style="margin-bottom: 16px;">
+        <code><strong>Full Port Scan:</strong><br>py run_scan.py --target 192.168.1.1 --profile full --output reports/full_scan.html</code>
+      </div>
+      
+      <div class="code-block" style="margin-bottom: 16px;">
+        <code><strong>Top 100 Ports:</strong><br>py run_scan.py --target 10.0.0.1 --profile top100 --output reports/top100_scan.html</code>
+      </div>
+      
       <div class="code-block">
-        <code>py run_scan.py --target 127.0.0.1 --output reports/my_report.html</code>
+        <code><strong>UDP Scan:</strong><br>py run_scan.py --target localhost --profile udp --output reports/udp_scan.html</code>
+      </div>
+      
+      <p style="margin-top: 20px; color: #6c757d; font-size: 0.9rem; font-style: italic;">
+        <strong>Note:</strong> All reports use the modern dark mode interface with severity scoring, color-coded rows, and professional styling.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">📊 Demo Reports</h2>
+      <p style="margin-bottom: 20px; color: #495057;">View sample reports generated with different scan profiles:</p>
+      
+      <div class="button-group" style="flex-direction: column; gap: 12px; align-items: stretch;">
+        <a href="demo-report.html" class="btn btn-primary" target="_blank" style="width: 100%; text-align: center;">
+          📄 Fast Scan Report
+        </a>
+        <a href="demo-report-default.html" class="btn btn-primary" target="_blank" style="width: 100%; text-align: center;">
+          📄 Default Scan Report
+        </a>
+        <a href="demo-report-top100.html" class="btn btn-primary" target="_blank" style="width: 100%; text-align: center;">
+          📄 Top 100 Ports Report
+        </a>
       </div>
     </section>
 
