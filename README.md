@@ -1,3 +1,5 @@
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Online-brightgreen)](https://fadhilkhafiz31.github.io/vulnscan-report/) ![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) ![GitHub stars](https://img.shields.io/github/stars/fadhilkhafiz31/vulnscan-report?style=social)
+
 # vulnscan-report
 # 🔍 vulnscan-report  
 *A lightweight Nmap-based vulnerability scanner with automated HTML report generation.*

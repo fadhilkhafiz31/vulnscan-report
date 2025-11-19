@@ -39,101 +39,325 @@ def determine_severity(portid: str, service: str, state: str) -> str:
 
 HTML_TEMPLATE = """
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vulnerability Scan Report</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h1, h2 { color: #333; }
-        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; font-size: 14px; }
-        th { background-color: #f2f2f2; }
-        .host-block { margin-bottom: 40px; }
-        .summary { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 30px; }
-        .summary h2 { margin-top: 0; }
-        .summary-item { margin: 5px 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #1a1a1a;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .header .meta {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border: 1px solid #dee2e6;
+        }
+
+        .summary h2 {
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .summary-item {
+            background-color: #ffffff;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .summary-item strong {
+            display: block;
+            color: #495057;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .summary-item .value {
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .host-block {
+            margin-bottom: 50px;
+        }
+
+        .host-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .host-block h2 {
+            color: #1a1a1a;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+            font-weight: 600;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 30px;
+            background-color: #ffffff;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+        th {
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        td {
+            padding: 12px;
+            font-size: 0.9rem;
+            color: #495057;
+            border: none;
+            vertical-align: middle;
+        }
+
         .badge {
             display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.75rem;
             text-align: center;
-            min-width: 60px;
+            min-width: 70px;
+            letter-spacing: 0.3px;
         }
+
         .badge-high {
             background-color: #dc3545;
-            color: white;
+            color: #ffffff;
         }
+
         .badge-medium {
             background-color: #fd7e14;
-            color: white;
+            color: #ffffff;
         }
+
         .badge-low {
             background-color: #28a745;
-            color: white;
+            color: #ffffff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 0.85rem;
+            border-top: 1px solid #e9ecef;
+            margin-top: 40px;
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .summary {
+                background: #f8f9fa;
+                border: 1px solid #dee2e6;
+            }
+
+            tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+
+            .footer {
+                border-top: 1px solid #dee2e6;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Vulnerability Scan Report</h1>
-    <p>Generated: {{ generated_at }}</p>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Vulnerability Scan Report</h1>
+            <p class="meta">Generated: {{ generated_at }}</p>
+        </div>
 
-    <div class="summary">
-        <h2>Summary</h2>
-        <div class="summary-item"><strong>Total Hosts:</strong> {{ summary.total_hosts }}</div>
-        <div class="summary-item"><strong>Total Open Ports:</strong> {{ summary.total_open_ports }}</div>
-        <div class="summary-item"><strong>High Severity:</strong> <span class="badge badge-high">{{ summary.high }}</span></div>
-        <div class="summary-item"><strong>Medium Severity:</strong> <span class="badge badge-medium">{{ summary.medium }}</span></div>
-        <div class="summary-item"><strong>Low Severity:</strong> <span class="badge badge-low">{{ summary.low }}</span></div>
-    </div>
+        <div class="summary">
+            <h2>Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <strong>Total Hosts</strong>
+                    <span class="value">{{ summary.total_hosts }}</span>
+                </div>
+                <div class="summary-item">
+                    <strong>Total Open Ports</strong>
+                    <span class="value">{{ summary.total_open_ports }}</span>
+                </div>
+                <div class="summary-item">
+                    <strong>High Severity</strong>
+                    <span class="value"><span class="badge badge-high">{{ summary.high }}</span></span>
+                </div>
+                <div class="summary-item">
+                    <strong>Medium Severity</strong>
+                    <span class="value"><span class="badge badge-medium">{{ summary.medium }}</span></span>
+                </div>
+                <div class="summary-item">
+                    <strong>Low Severity</strong>
+                    <span class="value"><span class="badge badge-low">{{ summary.low }}</span></span>
+                </div>
+            </div>
+        </div>
 
-    {% for host in hosts %}
-    <div class="host-block">
-        <h2>Host: {{ host.addresses | join(', ') }}</h2>
-        <table>
-            <tr>
-                <th>Port</th>
-                <th>Protocol</th>
-                <th>State</th>
-                <th>Service</th>
-                <th>Severity</th>
-                <th>Notes</th>
-            </tr>
-            {% for port in host.ports %}
-            <tr>
-                <td>{{ port.portid }}</td>
-                <td>{{ port.protocol }}</td>
-                <td>{{ port.state }}</td>
-                <td>{{ port.service or '-' }}</td>
-                <td>
-                    {% if port.severity %}
-                        {% if port.severity == 'High' %}
-                            <span class="badge badge-high">High</span>
-                        {% elif port.severity == 'Medium' %}
-                            <span class="badge badge-medium">Medium</span>
-                        {% elif port.severity == 'Low' %}
-                            <span class="badge badge-low">Low</span>
-                        {% else %}
-                            -
-                        {% endif %}
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
-                <td>
-                    {% if port.state == 'open' %}
-                        Review this service and ensure it is necessary and patched.
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+        {% for host in hosts %}
+        <div class="host-block">
+            <h2>Host: {{ host.addresses | join(', ') }}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Port</th>
+                        <th>Protocol</th>
+                        <th>State</th>
+                        <th>Service</th>
+                        <th>Severity</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for port in host.ports %}
+                    <tr>
+                        <td><strong>{{ port.portid }}</strong></td>
+                        <td>{{ port.protocol }}</td>
+                        <td>{{ port.state }}</td>
+                        <td>{{ port.service or '-' }}</td>
+                        <td>
+                            {% if port.severity %}
+                                {% if port.severity == 'High' %}
+                                    <span class="badge badge-high">High</span>
+                                {% elif port.severity == 'Medium' %}
+                                    <span class="badge badge-medium">Medium</span>
+                                {% elif port.severity == 'Low' %}
+                                    <span class="badge badge-low">Low</span>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if port.state == 'open' %}
+                                Review this service and ensure it is necessary and patched.
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+
+        <div class="footer">
+            Generated by vulnscan-report
+        </div>
     </div>
-    {% endfor %}
 </body>
 </html>
 """
