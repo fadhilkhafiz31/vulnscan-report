@@ -53,20 +53,19 @@ HTML_TEMPLATE = """
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f5f7fa;
+            background-color: #f3f4f6;
             color: #2c3e50;
             line-height: 1.6;
             padding: 20px;
         }
 
         .container {
-            max-width: 950px;
-            margin: 0 auto;
+            max-width: 1000px;
+            margin: 40px auto;
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            margin-bottom: 20px;
+            padding: 24px;
         }
 
         .header {
@@ -82,9 +81,10 @@ HTML_TEMPLATE = """
             font-weight: 700;
         }
 
-        .header .meta {
+        .header .subtitle {
             color: #6c757d;
             font-size: 0.95rem;
+            margin-top: 4px;
         }
 
         .summary {
@@ -158,17 +158,15 @@ HTML_TEMPLATE = """
         }
 
         thead {
-            background-color: #343a40;
-            color: #ffffff;
+            background-color: #e5e7eb;
         }
 
         th {
             padding: 14px 12px;
             text-align: left;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: #1a1a1a;
             border: none;
         }
 
@@ -182,6 +180,42 @@ HTML_TEMPLATE = """
 
         tbody tr:hover {
             background-color: #e9ecef;
+        }
+
+        .severity-high {
+            background-color: #ffe5e5 !important;
+        }
+
+        .severity-high:nth-child(even) {
+            background-color: #ffd6d6 !important;
+        }
+
+        .severity-high:hover {
+            background-color: #ffc7c7 !important;
+        }
+
+        .severity-medium {
+            background-color: #fff4e0 !important;
+        }
+
+        .severity-medium:nth-child(even) {
+            background-color: #ffe8cc !important;
+        }
+
+        .severity-medium:hover {
+            background-color: #ffddb3 !important;
+        }
+
+        .severity-low {
+            background-color: #e9f7ec !important;
+        }
+
+        .severity-low:nth-child(even) {
+            background-color: #d4f0db !important;
+        }
+
+        .severity-low:hover {
+            background-color: #bfe9ca !important;
         }
 
         td {
@@ -274,8 +308,8 @@ HTML_TEMPLATE = """
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔍 Vulnerability Scan Report</h1>
-            <p class="meta">Generated: {{ generated_at }}</p>
+            <h1>Vulnerability Scan Report</h1>
+            <p class="subtitle">Generated: {{ generated_at }}</p>
         </div>
 
         <div class="summary">
@@ -320,22 +354,14 @@ HTML_TEMPLATE = """
                 </thead>
                 <tbody>
                     {% for port in host.ports %}
-                    <tr>
+                    <tr class="{% if port.severity %}severity-{{ port.severity|lower }}{% endif %}">
                         <td><strong>{{ port.portid }}</strong></td>
                         <td>{{ port.protocol }}</td>
                         <td>{{ port.state }}</td>
                         <td>{{ port.service or '-' }}</td>
                         <td>
                             {% if port.severity %}
-                                {% if port.severity == 'High' %}
-                                    <span class="badge badge-high">High</span>
-                                {% elif port.severity == 'Medium' %}
-                                    <span class="badge badge-medium">Medium</span>
-                                {% elif port.severity == 'Low' %}
-                                    <span class="badge badge-low">Low</span>
-                                {% else %}
-                                    -
-                                {% endif %}
+                                <span class="badge badge-{{ port.severity|lower }}">{{ port.severity }}</span>
                             {% else %}
                                 -
                             {% endif %}
