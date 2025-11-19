@@ -53,8 +53,8 @@ HTML_TEMPLATE = """
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f3f4f6;
-            color: #2c3e50;
+            background-color: #1a1a1a;
+            color: #e5e5e5;
             line-height: 1.6;
             padding: 20px;
         }
@@ -62,41 +62,41 @@ HTML_TEMPLATE = """
         .container {
             max-width: 1000px;
             margin: 40px auto;
-            background-color: #ffffff;
+            background-color: #2d2d2d;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             padding: 24px;
         }
 
         .header {
-            border-bottom: 2px solid #e9ecef;
+            border-bottom: 2px solid #404040;
             padding-bottom: 20px;
             margin-bottom: 30px;
         }
 
         .header h1 {
-            color: #1a1a1a;
+            color: #ffffff;
             font-size: 2rem;
             margin-bottom: 8px;
             font-weight: 700;
         }
 
         .header .subtitle {
-            color: #6c757d;
+            color: #b0b0b0;
             font-size: 0.95rem;
             margin-top: 4px;
         }
 
         .summary {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, #3a3a3a 0%, #2d2d2d 100%);
             padding: 25px;
             border-radius: 8px;
             margin-bottom: 40px;
-            border: 1px solid #dee2e6;
+            border: 1px solid #404040;
         }
 
         .summary h2 {
-            color: #1a1a1a;
+            color: #ffffff;
             font-size: 1.5rem;
             margin-bottom: 20px;
             font-weight: 600;
@@ -109,7 +109,7 @@ HTML_TEMPLATE = """
         }
 
         .summary-item {
-            background-color: #ffffff;
+            background-color: #1a1a1a;
             padding: 12px 15px;
             border-radius: 6px;
             border-left: 4px solid #667eea;
@@ -117,7 +117,7 @@ HTML_TEMPLATE = """
 
         .summary-item strong {
             display: block;
-            color: #495057;
+            color: #b0b0b0;
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -125,7 +125,7 @@ HTML_TEMPLATE = """
         }
 
         .summary-item .value {
-            color: #1a1a1a;
+            color: #ffffff;
             font-size: 1.5rem;
             font-weight: 700;
         }
@@ -139,11 +139,11 @@ HTML_TEMPLATE = """
         }
 
         .host-block h2 {
-            color: #1a1a1a;
+            color: #ffffff;
             font-size: 1.4rem;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #e9ecef;
+            border-bottom: 2px solid #404040;
             font-weight: 600;
         }
 
@@ -151,14 +151,14 @@ HTML_TEMPLATE = """
             border-collapse: collapse;
             width: 100%;
             margin-bottom: 30px;
-            background-color: #ffffff;
+            background-color: #1a1a1a;
             border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         thead {
-            background-color: #e5e7eb;
+            background-color: #3a3a3a;
         }
 
         th {
@@ -166,62 +166,62 @@ HTML_TEMPLATE = """
             text-align: left;
             font-weight: 700;
             font-size: 0.9rem;
-            color: #1a1a1a;
+            color: #ffffff;
             border: none;
         }
 
         tbody tr {
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid #404040;
         }
 
         tbody tr:nth-child(even) {
-            background-color: #f8f9fa;
+            background-color: #252525;
         }
 
         tbody tr:hover {
-            background-color: #e9ecef;
+            background-color: #353535;
         }
 
         .severity-high {
-            background-color: #ffe5e5 !important;
+            background-color: #4a1f1f !important;
         }
 
         .severity-high:nth-child(even) {
-            background-color: #ffd6d6 !important;
+            background-color: #5a2525 !important;
         }
 
         .severity-high:hover {
-            background-color: #ffc7c7 !important;
+            background-color: #6a2f2f !important;
         }
 
         .severity-medium {
-            background-color: #fff4e0 !important;
+            background-color: #4a3a1f !important;
         }
 
         .severity-medium:nth-child(even) {
-            background-color: #ffe8cc !important;
+            background-color: #5a4525 !important;
         }
 
         .severity-medium:hover {
-            background-color: #ffddb3 !important;
+            background-color: #6a502f !important;
         }
 
         .severity-low {
-            background-color: #e9f7ec !important;
+            background-color: #1f3a2f !important;
         }
 
         .severity-low:nth-child(even) {
-            background-color: #d4f0db !important;
+            background-color: #254530 !important;
         }
 
         .severity-low:hover {
-            background-color: #bfe9ca !important;
+            background-color: #2f503a !important;
         }
 
         td {
             padding: 12px;
             font-size: 0.9rem;
-            color: #495057;
+            color: #e5e5e5;
             border: none;
             vertical-align: middle;
         }
@@ -255,15 +255,15 @@ HTML_TEMPLATE = """
         .footer {
             text-align: center;
             padding: 20px;
-            color: #6c757d;
+            color: #b0b0b0;
             font-size: 0.85rem;
-            border-top: 1px solid #e9ecef;
+            border-top: 1px solid #404040;
             margin-top: 40px;
         }
 
         @media print {
             body {
-                background-color: #ffffff;
+                background-color: #1a1a1a;
                 padding: 0;
             }
 
@@ -273,16 +273,16 @@ HTML_TEMPLATE = """
             }
 
             .summary {
-                background: #f8f9fa;
-                border: 1px solid #dee2e6;
+                background: #3a3a3a;
+                border: 1px solid #404040;
             }
 
             tbody tr:nth-child(even) {
-                background-color: #f8f9fa;
+                background-color: #252525;
             }
 
             .footer {
-                border-top: 1px solid #dee2e6;
+                border-top: 1px solid #404040;
             }
         }
 
