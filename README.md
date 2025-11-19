@@ -82,16 +82,3 @@ py run_scan.py --target localhost --profile udp --output reports/udp_scan.html
 ```bash
 py run_scan.py --target 10.0.0.1 --profile top100 --output reports/top100_scan.html
 ```
-
----
-
-## 📽️ Demo
-
-Here is a short demo of vulnscan-report in action:
-
-![Tool Demo](docs/demo.gif)
-
----
-
-## 📁 Project Structure
-
