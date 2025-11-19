@@ -47,5 +47,13 @@ py run_scan.py --target 127.0.0.1 --output reports/my_report.html
 
 ---
 
+## 📽️ Demo
+
+Here is a short demo of vulnscan-report in action:
+
+![Tool Demo](docs/demo.gif)
+
+---
+
 ## 📁 Project Structure
 
