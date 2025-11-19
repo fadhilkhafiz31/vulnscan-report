@@ -13,9 +13,15 @@ def main():
         default="reports/report.html",
         help="Path to output HTML report",
     )
+    parser.add_argument(
+        "--profile",
+        choices=["default", "fast", "full", "top100", "udp"],
+        default="default",
+        help="Scan profile: default (sV, T4), fast (F), full (all ports), top100 (top 100 ports), udp (UDP scan)"
+    )
     args = parser.parse_args()
 
-    xml_output = run_scan(args.target)
+    xml_output = run_scan(args.target, args.profile)
     results = parse_nmap_xml(xml_output)
     generate_html_report(results, args.output)
     print(f"[+] Report generated at {args.output}")

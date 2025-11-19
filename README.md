@@ -49,6 +49,42 @@ py run_scan.py --target 127.0.0.1 --output reports/my_report.html
 
 ---
 
+## 🔧 Scan Profiles
+
+Choose from multiple scan profiles to suit your needs:
+
+| Profile | Description | Nmap Flags |
+|---------|-------------|------------|
+| `default` | Standard scan with service detection (default) | `-sV -T4` |
+| `fast` | Quick scan of most common ports | `-F` |
+| `full` | Comprehensive scan of all 65535 TCP ports | `-sV -T4 -p-` |
+| `top100` | Scan top 100 most common ports | `--top-ports 100` |
+| `udp` | UDP port scan | `-sU` |
+
+### Examples
+
+**Quick scan:**
+```bash
+py run_scan.py --target 127.0.0.1 --profile fast --output reports/quick_scan.html
+```
+
+**Full port scan:**
+```bash
+py run_scan.py --target 192.168.1.1 --profile full --output reports/full_scan.html
+```
+
+**UDP scan:**
+```bash
+py run_scan.py --target localhost --profile udp --output reports/udp_scan.html
+```
+
+**Top 100 ports:**
+```bash
+py run_scan.py --target 10.0.0.1 --profile top100 --output reports/top100_scan.html
+```
+
+---
+
 ## 📽️ Demo
 
 Here is a short demo of vulnscan-report in action:
