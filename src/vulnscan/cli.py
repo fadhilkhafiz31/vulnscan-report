@@ -1,7 +1,9 @@
 import argparse
+import sys
 from .scanner import run_scan
 from .parser import parse_nmap_xml
 from .reporter import generate_html_report
+from .utils import validate_target
 
 def main():
     parser = argparse.ArgumentParser(
@@ -20,6 +22,10 @@ def main():
         help="Scan profile: default (sV, T4), fast (F), full (all ports), top100 (top 100 ports), udp (UDP scan)"
     )
     args = parser.parse_args()
+
+    if not validate_target(args.target):
+        print(f"Error: Invalid target '{args.target}'. Please provide a valid IP address or hostname.")
+        sys.exit(1)
 
     xml_output = run_scan(args.target, args.profile)
     results = parse_nmap_xml(xml_output)
