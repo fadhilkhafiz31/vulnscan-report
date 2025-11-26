@@ -1,5 +1,6 @@
 import argparse
 import sys
+import os
 from .scanner import run_scan
 from .parser import parse_nmap_xml
 from .reporter import generate_html_report
@@ -33,6 +34,7 @@ def main():
         print("Please install Nmap from https://nmap.org/download.html")
         sys.exit(1)
 
+    xml_output = None
     try:
         xml_output = run_scan(args.target, args.profile)
         results = parse_nmap_xml(xml_output)
@@ -41,6 +43,12 @@ def main():
     except Exception as e:
         print(f"Error: {str(e)}")
         sys.exit(1)
+    finally:
+        if xml_output and os.path.exists(xml_output):
+            try:
+                os.remove(xml_output)
+            except OSError as e:
+                print(f"Warning: Could not remove temporary file {xml_output}: {e}")
 
 if __name__ == "__main__":
     main()
