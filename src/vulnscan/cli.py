@@ -27,10 +27,20 @@ def main():
         print(f"Error: Invalid target '{args.target}'. Please provide a valid IP address or hostname.")
         sys.exit(1)
 
-    xml_output = run_scan(args.target, args.profile)
-    results = parse_nmap_xml(xml_output)
-    generate_html_report(results, args.output)
-    print(f"[+] Report generated at {args.output}")
+    from .utils import check_nmap_installed
+    if not check_nmap_installed():
+        print("Error: Nmap is not installed or not found in PATH.")
+        print("Please install Nmap from https://nmap.org/download.html")
+        sys.exit(1)
+
+    try:
+        xml_output = run_scan(args.target, args.profile)
+        results = parse_nmap_xml(xml_output)
+        generate_html_report(results, args.output)
+        print(f"[+] Report generated at {args.output}")
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

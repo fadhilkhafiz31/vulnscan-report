@@ -33,6 +33,12 @@ def run_scan(target: str, profile: str = "default") -> str:
 
     print(f"[*] Using scan profile: {profile}")
     print(f"[+] Running: {' '.join(cmd)}")
-    subprocess.run(cmd, check=True)
+    
+    try:
+        subprocess.run(cmd, check=True, capture_output=True, text=True)
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError(f"Nmap scan failed: {e.stderr.strip()}")
+    except FileNotFoundError:
+        raise RuntimeError("Nmap executable not found. Please ensure Nmap is installed and in your PATH.")
 
     return xml_path

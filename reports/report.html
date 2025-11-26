@@ -270,7 +270,7 @@
     <div class="container">
         <div class="header">
             <h1>Vulnerability Scan Report</h1>
-            <p class="subtitle">Generated: 2025-11-26 08:11:42 UTC</p>
+            <p class="subtitle">Generated: 2025-11-26 08:19:27 UTC</p>
         </div>
 
         <div class="summary">
@@ -278,15 +278,15 @@
             <div class="summary-grid">
                 <div class="summary-item">
                     <strong>Total Hosts</strong>
-                    <span class="value">0</span>
+                    <span class="value">1</span>
                 </div>
                 <div class="summary-item">
                     <strong>Total Open Ports</strong>
-                    <span class="value">0</span>
+                    <span class="value">4</span>
                 </div>
                 <div class="summary-item">
                     <strong>High Severity</strong>
-                    <span class="value"><span class="badge badge-high">0</span></span>
+                    <span class="value"><span class="badge badge-high">2</span></span>
                 </div>
                 <div class="summary-item">
                     <strong>Medium Severity</strong>
@@ -294,11 +294,98 @@
                 </div>
                 <div class="summary-item">
                     <strong>Low Severity</strong>
-                    <span class="value"><span class="badge badge-low">0</span></span>
+                    <span class="value"><span class="badge badge-low">2</span></span>
                 </div>
             </div>
         </div>
 
+        
+        <div class="host-block">
+            <h2>Host: 127.0.0.1</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Port</th>
+                        <th>Protocol</th>
+                        <th>State</th>
+                        <th>Service</th>
+                        <th>Severity</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr class="severity-high">
+                        <td><strong>135</strong></td>
+                        <td>tcp</td>
+                        <td>open</td>
+                        <td>msrpc</td>
+                        <td>
+                            
+                                <span class="badge badge-high">High</span>
+                            
+                        </td>
+                        <td>
+                            
+                                Review this service and ensure it is necessary and patched.
+                            
+                        </td>
+                    </tr>
+                    
+                    <tr class="severity-high">
+                        <td><strong>445</strong></td>
+                        <td>tcp</td>
+                        <td>open</td>
+                        <td>microsoft-ds</td>
+                        <td>
+                            
+                                <span class="badge badge-high">High</span>
+                            
+                        </td>
+                        <td>
+                            
+                                Review this service and ensure it is necessary and patched.
+                            
+                        </td>
+                    </tr>
+                    
+                    <tr class="severity-low">
+                        <td><strong>9010</strong></td>
+                        <td>tcp</td>
+                        <td>open</td>
+                        <td>websocket</td>
+                        <td>
+                            
+                                <span class="badge badge-low">Low</span>
+                            
+                        </td>
+                        <td>
+                            
+                                Review this service and ensure it is necessary and patched.
+                            
+                        </td>
+                    </tr>
+                    
+                    <tr class="severity-low">
+                        <td><strong>9101</strong></td>
+                        <td>tcp</td>
+                        <td>open</td>
+                        <td>jetdirect</td>
+                        <td>
+                            
+                                <span class="badge badge-low">Low</span>
+                            
+                        </td>
+                        <td>
+                            
+                                Review this service and ensure it is necessary and patched.
+                            
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
         
 
         <div class="footer">

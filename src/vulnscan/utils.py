@@ -1,5 +1,12 @@
 import ipaddress
 import re
+import shutil
+
+def check_nmap_installed() -> bool:
+    """
+    Checks if Nmap is installed and available in the system PATH.
+    """
+    return shutil.which("nmap") is not None
 
 def validate_target(target: str) -> bool:
     """
